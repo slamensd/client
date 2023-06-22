@@ -182,7 +182,12 @@ const fetchQuestions = async () => {
       const filteredQuestions = data.records
         .filter((record) => {
           const slideIndex = currentSlideIndex || 0;
-          return record.fields.Slide === `Slide ${slideIndex}`;
+          return (
+            record.fields.Slide === `Slide ${slideIndex}` &&
+            record.fields.Question !== null &&
+            record.fields.Question !== undefined &&
+            record.fields.Question.trim() !== ''
+          );
         })
         .map((record) => record.fields.Question);
       questions = filteredQuestions;
@@ -194,6 +199,7 @@ const fetchQuestions = async () => {
     console.error('An error occurred while fetching questions data', error);
   }
 };
+
 
 const showQuestions = () => {
   const questionsContainer = document.getElementById('questions-container');
