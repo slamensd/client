@@ -7,7 +7,7 @@ const headers = { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'applicatio
 let slides = [];
 let questions = [];
 
-let twitterAccount = '';
+let emailAddress = '';
 
 let currentSlideIndex = 0;
 
@@ -23,7 +23,7 @@ const createForm = (slideIndex) => {
       <div class="slide-content">
         <h2 class="headline">Explore the Frensville Ecosystem</h2>
         <p class="slide-description">${slides[slideIndex].description}</p>
-        <input type="text" name="twitter" id="twitter-input" placeholder="What is your Twitter handle?" required>
+        <input type="email" name="email" id="email-input" placeholder="Your Email Address" required pattern="[a-zA-Z0-9._%+-]+@corbion\.com">
         <button type="submit" data-slide="${slideIndex}" class="buttons cta-button">Get Started</button>
       </div>
     ` : `
@@ -41,12 +41,12 @@ const createForm = (slideIndex) => {
   `;
   form.onsubmit = async (event) => {
     event.preventDefault();
-    const { twitter, question } = event.target.elements;
-    if (twitter) {
-      twitterAccount = twitter.value;
+    const { email, question } = event.target.elements;
+    if (email) {
+      emailAddress = email.value;
     }
-    if (twitterAccount && question) {
-      await submitQuestion(slideIndex, twitterAccount, question.value);
+    if (emailAddress && isValidCorbionEmail(emailAddress) && question) {
+      await submitQuestion(slideIndex, emailAddress, question.value);
       event.target.reset();
     }
     showNextSlide(slideIndex);
@@ -79,14 +79,13 @@ const createQuestionEntry = (questionData) => {
   return questionEntry;
 };
 
-
-const submitQuestion = async (slideIndex, twitter, question) => {
+const submitQuestion = async (slideIndex, email, question) => {
   const data = {
     records: [
       {
         fields: {
           Slide: `Slide ${slideIndex}`,
-          Twitter: twitter,
+          Email: email,
           Question: question,
         },
       },
@@ -97,6 +96,11 @@ const submitQuestion = async (slideIndex, twitter, question) => {
     headers: headers,
     body: JSON.stringify(data),
   });
+};
+
+const isValidCorbionEmail = (email) => {
+  const pattern = /^[a-zA-Z0-9._%+-]+@corbion\.com$/;
+  return pattern.test(email);
 };
 
 const showNextSlide = (index) => {
