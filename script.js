@@ -1,5 +1,5 @@
 // Airtable config
-const baseId = 'appMQObOvMIuSBflv';
+const baseId = 'appMJmaOUMG47GeY1';
 const tableName = 'Slides';
 const apiKey = 'keyzbt7lLQxpiP1MO';
 const headers = { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json' };
