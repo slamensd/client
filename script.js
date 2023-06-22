@@ -131,6 +131,9 @@ const fetchSlides = async () => {
     // Example:
     slides = [
       { title: 'Slide 0', description: 'Slide 0 description' },
+      { title: 'Slide 1', description: 'Slide 0 description' },
+      { title: 'Slide 2', description: 'Slide 0 description' },
+      { title: 'Slide 3', description: 'Slide 0 description' },
       // Add more slides as needed
     ];
     updateSlides();
