@@ -23,7 +23,7 @@ const createForm = (slideIndex) => {
       <div class="slide-content">
         <h2 class="headline">Explore the Frensville Ecosystem</h2>
         <p class="slide-description">${slides[slideIndex].description}</p>
-        <input type="email" name="email" id="email-input" placeholder="Your Email Address" required pattern="[a-zA-Z0-9._%+-]+@corbion\.com">
+        <input type="email" name="email" id="email-input" placeholder="Your Email Address" required>
         <button type="submit" data-slide="${slideIndex}" class="buttons cta-button">Get Started</button>
       </div>
     ` : `
@@ -39,24 +39,37 @@ const createForm = (slideIndex) => {
       </div>
     `}
   `;
+
   form.onsubmit = async (event) => {
     event.preventDefault();
     const { email, question } = event.target.elements;
     if (email) {
       emailAddress = email.value;
     }
+
     if (emailAddress && isValidCorbionEmail(emailAddress) && question) {
       await submitQuestion(slideIndex, emailAddress, question.value);
       event.target.reset();
+    } else {
+      alert('Please enter a valid @corbion.com email address.');
     }
+
     showNextSlide(slideIndex);
   };
+
   const prevButton = form.querySelector('.prev');
   if (prevButton) {
     prevButton.onclick = () => showPreviousSlide(slideIndex);
   }
+
   return form;
 };
+
+const isValidCorbionEmail = (email) => {
+  const pattern = /^[a-zA-Z0-9._%+-]+@corbion\.com$/;
+  return pattern.test(email);
+};
+
 
 const createSlide = (slideData, index) => {
   const slide = document.createElement('div');
