@@ -21,7 +21,7 @@ const createForm = (slideIndex) => {
   form.innerHTML = `
     ${slideIndex === 0 ? `
       <div class="slide-content">
-        <h2 class="headline">Explore the Frensville Ecosystem</h2>
+        <h2 class="headline">Thank you for the opportunity to present our solution!</h2>
         <p class="slide-description">${slides[slideIndex].description}</p>
         <input type="email" name="email" id="email-input" placeholder="Your Email Address" required>
         <button type="submit" data-slide="${slideIndex}" class="buttons cta-button">Get Started</button>
@@ -143,7 +143,7 @@ const fetchSlides = async () => {
     // Fetch your slide data or update it manually here
     // Example:
     slides = [
-      { title: 'Slide 0', description: 'Slide 0 description' },
+      { title: 'Slide 0', description: 'We are a digital solutions company' },
       { title: 'Slide 1', description: 'Slide 0 description' },
       { title: 'Slide 2', description: 'Slide 0 description' },
       { title: 'Slide 3', description: 'Slide 0 description' },
