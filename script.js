@@ -111,10 +111,7 @@ const submitQuestion = async (slideIndex, email, question) => {
   });
 };
 
-const isValidCorbionEmail = (email) => {
-  const pattern = /^[a-zA-Z0-9._%+-]+@corbion\.com$/;
-  return pattern.test(email);
-};
+
 
 const showNextSlide = (index) => {
   const currentSlide = document.querySelectorAll('.slide-container')[index];
