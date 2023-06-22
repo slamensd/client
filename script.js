@@ -115,6 +115,13 @@ const submitQuestion = async (slideIndex, email, question) => {
 
 const showNextSlide = (index) => {
   const currentSlide = document.querySelectorAll('.slide-container')[index];
+  const emailInput = currentSlide.querySelector('#email-input');
+
+  if (emailInput && !isValidCorbionEmail(emailInput.value)) {
+    alert('Please enter a valid @corbion.com email address.');
+    return;
+  }
+
   currentSlide.style.display = 'none';
   const nextSlide = document.querySelectorAll('.slide-container')[index + 1];
   if (nextSlide) {
@@ -123,6 +130,7 @@ const showNextSlide = (index) => {
     fetchQuestions();
   }
 };
+
 
 const showPreviousSlide = (index) => {
   const currentSlide = document.querySelectorAll('.slide-container')[index];
