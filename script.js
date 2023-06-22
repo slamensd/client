@@ -160,6 +160,18 @@ const fetchSlides = async () => {
   }
 };
 
+
+
+const updateSlides = () => {
+  const container = document.getElementById('slides-container');
+  container.innerHTML = '';
+  slides.forEach((slideData, index) => {
+    const slide = createSlide(slideData, index);
+    slide.style.display = index === 0 ? 'flex' : 'none';
+    container.appendChild(slide);
+  });
+};
+
 const fetchQuestions = async () => {
   try {
     const response = await fetch(`https://api.airtable.com/v0/${baseId}/${tableName}`, {
@@ -168,7 +180,10 @@ const fetchQuestions = async () => {
     if (response.ok) {
       const data = await response.json();
       const filteredQuestions = data.records
-        .filter((record) => record.fields.Slide === `Slide ${currentSlideIndex}`)
+        .filter((record) => {
+          const slideIndex = currentSlideIndex || 0;
+          return record.fields.Slide === `Slide ${slideIndex}`;
+        })
         .map((record) => record.fields.Question);
       questions = filteredQuestions;
       showQuestions();
@@ -189,14 +204,5 @@ const showQuestions = () => {
   });
 };
 
-const updateSlides = () => {
-  const container = document.getElementById('slides-container');
-  container.innerHTML = '';
-  slides.forEach((slideData, index) => {
-    const slide = createSlide(slideData, index);
-    slide.style.display = index === 0 ? 'flex' : 'none';
-    container.appendChild(slide);
-  });
-};
 
 fetchSlides();
